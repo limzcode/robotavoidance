@@ -1,0 +1,27 @@
+#include <AFMotor.h>
+int potPin = 0;    // select the input pin for the potentiometer
+int val = 0;       // variable to store the value coming from the sensor
+AF_DCMotor motor(2, MOTOR12_64KHZ); // create motor #2, 64KHz pwm
+
+void setup() {
+ Serial.begin(9600);           // set up Serial library at 9600 bps
+ Serial.println("Motor test!");
+ 
+ motor.setSpeed(200);     // set the speed to 200/255
+}
+void loop() {
+ val = analogRead(potPin);  
+if(val > 500)
+ {  // read the value from the sensor
+ Serial.print("tick");
+ motor.run(FORWARD);      // turn it on going forward
+ delay(500);
+}
+ else
+ {                  // stop the program for some time
+ Serial.print("tock");
+ motor.run(BACKWARD);     // the other way
+ delay(500);    
+
+}
+}
